@@ -1,35 +1,49 @@
 import {hot} from 'react-hot-loader';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
-import {Router, browserHistory} from "react-router";
-import './styles/App.css';
-import { Provider } from 'react-redux';
-import store from './stores/index.js';
-import UserForm from './components/Users/UserForm.js';
-import routes from "./routes.js";
+// import "./styles.css";
 
-// import { EmptyLayout, LayoutRoute, MainLayout } from './components/Layout/MainLayout';
+// import { createStore } from "redux";
+// import { Provider } from "react-redux";
 
-// import DashboardPage from './pages/DashboardPage';
-// const DashboardPage = React.lazy(() => import('pages/DashboardPage'));
+// import Counter from "./components/Counter";
+// import counter from "./reducers/counter";
 
-// const getBasename = () => {
-//     return `/${process.env.PUBLIC_URL.split('/').pop()}`;
-//   };
+// import {
+//     BrowserRouter as Router,
+//     Switch,
+//     Route,
+//     Link
+//   } from "react-router-dom";
 
-class App extends React.Component {
+import { Admin, Resource, ListGuesser } from "react-admin";
+
+
+import { UserList } from './views/users/UserList';
+import jsonServerProvider from "ra-data-json-server";
+
+const dataProvider =
+  jsonServerProvider("https://jsonplaceholder.typicode.com");
+
+// const store = createStore(counter);
+
+class App extends Component {
 
     render() {
         return (
-            <div>
-              <h1>Hello!</h1>
-              <p>Wow Excellent!</p>
-              <Provider store={store}>
 
-                <UserForm/>
-              </Provider>
-            </div>
+            // <Provider store={store}>
+
+            //     <div className="App">
+
+            //     <Counter />
+            //     </div>
+            // </Provider>
+            <Admin dataProvider={dataProvider} >
+                <Resource name="users" list={ListGuesser} />
+                {/* <Resource name="users" list={UserList} /> */}
+            </Admin>
           );
     }
 
